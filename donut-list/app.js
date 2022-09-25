@@ -1,9 +1,8 @@
-const AWS = require('aws-sdk')
+const AWS = require("aws-sdk");
 const ddb = new AWS.DynamoDB()
-const uuid = require('uuid')
-const tableName = process.env.TABLE_NAME
+// const uuid = require('uuid')
 
-let response;
+let response={};
 
 /**
  *
@@ -22,25 +21,27 @@ let response;
 
 exports.lambdaHandler = async (event, context) => {
     try {
+        const tableName = process.env.TABLE_NAME
         const get_params = {
             TableName: tableName,
             Select: "ALL_ATTRIBUTES"
           };
-  
-          const list_response = await ddb.scan(get_params).promise();
-          
+          console.log('-----------oh oh oh-----------')
+        //   const list_response = await ddb.scan(get_params).promise();
+          console.log('-----------oh oh oh-----------')
           response = {
               'statusCode': 200,
               'body': JSON.stringify({
-                  message: list_response.Items,
-                  // location: ret.data.trim()
+                  response: "data from local lambda function!"
               })
           }
-  
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
 
-    return response
-};
+        } catch (err) {
+            response = {
+                'statusCode': 200,
+                'body': JSON.stringify({error: err.message})
+            }
+        } finally{
+            return response;
+        }
+    };
