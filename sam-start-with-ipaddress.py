@@ -2,7 +2,7 @@ import socket
 import os 
 
 
-def get_Host_name_IP():
+def startSamOnLocalNetwork():
     '''
     Starts `sam local start-api` and inserts your machines ip address 
     so you can call the server from your local network!
@@ -16,4 +16,4 @@ def get_Host_name_IP():
  
  
 # Driver code
-get_Host_name_IP()
+startSamOnLocalNetwork()
